@@ -3400,18 +3400,32 @@ a:hover { color: #142a66; text-decoration: underline; }
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">담당 R&amp;R</div>
           <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 13.5px; line-height: 1.6; color: #454b58;">
-            <li>SkeletalMesh <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">런타임 렌더링 버퍼 재구성</span> (v0.1 슬라이스 파이프라인 코어)</li>
-            <li>절단면 폴리곤 생성 로직 : FGeomTools 한계 보완, <span style="background: linear-gradient(transparent 42%, rgb(214, 226, 247) 42%, rgb(214, 226, 247) 92%, transparent 92%); padding: 0px 1px; font-weight: 700;">양방향 Edge 탐색 확장</span></li>
-            <li>절단면 CPU Skinning 및 Cap Socket 자동 부착 + Niagara VFX 통합</li>
+            <li>SkeletalMesh <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">렌더 버퍼 런타임 재구성</span> 파이프라인 설계 및 구현</li>
+            <li>절단면 생성 및 CPU Skinning</li>
+            <li>절단면 Socket 부착 + VFX 통합</li>
             <li>YouTube 튜토리얼·데모 제작, Discord 커뮤니티 공지 및 사용자 커뮤니케이션</li>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">정량 성과</div>
+          <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">성과</div>
           <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #f0f3fa; border-radius: 6px; border: 1px solid #dce2ef;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Fab 상용 출시 후 운영</div>
               <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">Docs(Notion) · Discord · YouTube 사용자 지원</div>
+            </div>
+            <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">절단 1회 총비용 17.87ms → 11.70ms (−34.5%)</div>
+              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">렌더 스레드 대기 64회 → 0</div>
+            </div>
+            <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">정점 분류 6.50ms → 0.55ms (−91.6%)</div>
+            </div>
+            <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">렌더 버퍼 재구성 로직 8.04ms → 6.79ms (−15.5%, 격리 측정)</div>
+            </div>
+            <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">캡 웨이트 조회 O(N×M) → O(1)</div>
+              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">455/455 폴백 0회</div>
             </div>
           </div>
         </div>
