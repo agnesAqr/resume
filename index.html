@@ -22,15 +22,39 @@
     Clarity  : https://clarity.microsoft.com 에서 프로젝트 생성 → "프로젝트 ID" (영문+숫자 10자 내외)
 
   로컬(file://, localhost)에서 열 때는 자동으로 비활성화되어 테스트 방문이 통계에 섞이지 않습니다.
+
+  본인(사이트 소유자) 방문 제외:
+    - 이 사이트를 ?notrack=1 을 붙여서 한 번 열면(예: https://내사이트/?notrack=1)
+      이 브라우저에 "추적 안 함" 표시가 영구 저장되어 이후 방문부터는 GA4/Clarity가 로드되지 않습니다.
+    - 다시 추적을 받고 싶으면 ?notrack=0 을 붙여서 한 번 열면 됩니다.
+    - 이 설정은 브라우저(기기)별로 저장되며, 시크릿 모드나 다른 브라우저/기기에는 적용되지 않습니다.
 -->
 <script>
 (function () {
   var GA4_MEASUREMENT_ID = "G-2CLPB98WS3";
   var CLARITY_PROJECT_ID = "y9w24nzeaj";
+  var NOTRACK_KEY = "resume_notrack";
 
   var host = location.hostname;
   var isLocal = location.protocol === "file:" || host === "localhost" || host === "127.0.0.1" || host === "";
   if (isLocal) return;
+
+  var params = new URLSearchParams(location.search);
+  if (params.has("notrack")) {
+    try {
+      if (params.get("notrack") === "0") {
+        localStorage.removeItem(NOTRACK_KEY);
+      } else {
+        localStorage.setItem(NOTRACK_KEY, "1");
+      }
+    } catch (e) {}
+  }
+
+  var isOwner = false;
+  try {
+    isOwner = localStorage.getItem(NOTRACK_KEY) === "1";
+  } catch (e) {}
+  if (isOwner) return;
 
   if (GA4_MEASUREMENT_ID) {
     var ga = document.createElement("script");
