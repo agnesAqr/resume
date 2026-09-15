@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 // index.html 을 PDF 로 렌더링한다.
 //
-//   node scripts/build-pdf.js [출력파일]        (기본: resume.pdf)
+//   node scripts/build-pdf.js [출력파일]              (기본: resume.pdf)
+//   node scripts/build-pdf.js --one-page [출력파일]   (기본: resume-onepage.pdf)
+//
+// --one-page 는 웹페이지 원본 레이아웃(폭 940px 카드) 그대로 잘라내지 않고
+// 한 장짜리 긴 페이지로 뽑는다. 아래 4장 구성은 기본 모드에만 해당한다.
 //
 // 페이지 구성 (4장):
 //   1. 헤더 + 경력 · 애니펜
@@ -20,12 +24,20 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.resolve(process.argv[2] || path.join(ROOT, 'resume.pdf'));
+const args = process.argv.slice(2);
+// --one-page: 섹션을 나누지 않고 웹페이지 원본 레이아웃 그대로 한 장에 담는다.
+const ONE_PAGE = args.includes('--one-page');
+const OUT = path.resolve(
+  args.find(a => !a.startsWith('--')) ||
+  path.join(ROOT, ONE_PAGE ? 'resume-onepage.pdf' : 'resume.pdf'),
+);
 
 const PAGE_WIDTH_MM = 210;
 const MARGIN_MM = 10;
 const PX_PER_MM = 96 / 25.4;
 const CONTENT_WIDTH_PX = Math.round((PAGE_WIDTH_MM - MARGIN_MM * 2) * PX_PER_MM); // 718
+// 원본 레이아웃 폭: 본문 컨테이너 max-width 940px + 좌우 패딩 24px
+const FULL_WIDTH_PX = 988;
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -167,32 +179,42 @@ const SHRINK_IMAGES = async () => {
   const browser = await chromium.launch();
 
   try {
-    const page = await browser.newPage({ viewport: { width: CONTENT_WIDTH_PX, height: 1400 } });
+    const width = ONE_PAGE ? FULL_WIDTH_PX : CONTENT_WIDTH_PX;
+    const page = await browser.newPage({ viewport: { width, height: 1400 } });
     await page.goto(url, { waitUntil: 'networkidle' });
 
-    await page.addStyleTag({ content: LAYOUT_CSS });
+    if (!ONE_PAGE) await page.addStyleTag({ content: LAYOUT_CSS });
     await page.evaluate(FORCE_LAZY_IMAGES);
     await page.waitForTimeout(2500);
     await page.evaluate(AWAIT_ASSETS);
-    await page.waitForTimeout(1000);
+    // 애니메이션 webp 는 지금 보이는 프레임이 그대로 박제되므로 잠시 재생시킨다.
+    await page.waitForTimeout(2000);
 
-    const ids = await page.evaluate(SPLIT);
+    const ids = ONE_PAGE ? [] : await page.evaluate(SPLIT);
     await page.evaluate(SHRINK_IMAGES);
     await page.evaluate(AWAIT_ASSETS);
     await page.waitForTimeout(500);
 
-    // 페이지별 높이를 재고 이름 있는 @page 규칙으로 각 페이지 크기를 지정한다.
-    const heights = await page.evaluate(
-      list => list.map(id => Math.ceil(document.getElementById(id).getBoundingClientRect().height)),
-      ids,
-    );
+    if (ONE_PAGE) {
+      // 문서 전체 높이를 한 장짜리 페이지 크기로 쓴다.
+      const height = await page.evaluate(() => Math.ceil(document.documentElement.scrollHeight));
+      await page.addStyleTag({
+        content: `@page { size: ${(width / PX_PER_MM).toFixed(2)}mm ${(height / PX_PER_MM + 1).toFixed(2)}mm; margin: 0; }`,
+      });
+    } else {
+      // 페이지별 높이를 재고 이름 있는 @page 규칙으로 각 페이지 크기를 지정한다.
+      const heights = await page.evaluate(
+        list => list.map(id => Math.ceil(document.getElementById(id).getBoundingClientRect().height)),
+        ids,
+      );
 
-    const pageCss = ids.map((id, i) => {
-      const heightMm = (heights[i] / PX_PER_MM + MARGIN_MM * 2 + 1).toFixed(2);
-      return `@page page-${i + 1} { size: ${PAGE_WIDTH_MM}mm ${heightMm}mm; margin: ${MARGIN_MM}mm; }\n` +
-             `#${id} { page: page-${i + 1}; }`;
-    }).join('\n');
-    await page.addStyleTag({ content: pageCss });
+      const pageCss = ids.map((id, i) => {
+        const heightMm = (heights[i] / PX_PER_MM + MARGIN_MM * 2 + 1).toFixed(2);
+        return `@page page-${i + 1} { size: ${PAGE_WIDTH_MM}mm ${heightMm}mm; margin: ${MARGIN_MM}mm; }\n` +
+               `#${id} { page: page-${i + 1}; }`;
+      }).join('\n');
+      await page.addStyleTag({ content: pageCss });
+    }
 
     await page.pdf({
       path: OUT,
