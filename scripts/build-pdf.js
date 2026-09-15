@@ -48,6 +48,7 @@ const MIME = {
   '.jpeg': 'image/jpeg',
   '.png': 'image/png',
   '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2',
 };
 
 function requirePlaywright() {
@@ -182,6 +183,15 @@ const SHRINK_IMAGES = async () => {
     const width = ONE_PAGE ? FULL_WIDTH_PX : CONTENT_WIDTH_PX;
     const page = await browser.newPage({ viewport: { width, height: 1400 } });
     await page.goto(url, { waitUntil: 'networkidle' });
+
+    // index.html 은 웹폰트를 Google Fonts 에서 받아온다. 렌더링 환경이 거기에
+    // 닿지 못하면 한글이 시스템 대체 폰트로 바뀌므로, 저장소에 받아둔 서브셋을
+    // 항상 물려서 어디서 뽑든 같은 글꼴이 나오게 한다.
+    if (fs.existsSync(path.join(ROOT, 'fonts', 'fonts.css'))) {
+      await page.addStyleTag({ url: '/fonts/fonts.css' });
+    } else {
+      console.warn('fonts/fonts.css 가 없다. node scripts/fetch-fonts.js 를 먼저 실행할 것.');
+    }
 
     if (!ONE_PAGE) await page.addStyleTag({ content: LAYOUT_CSS });
     await page.evaluate(FORCE_LAZY_IMAGES);

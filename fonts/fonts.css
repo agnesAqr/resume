@@ -1,0 +1,19 @@
+/* scripts/fetch-fonts.js 가 생성. 직접 고치지 말 것.
+   Noto Sans KR, JetBrains Mono — SIL Open Font License 1.1
+   index.html 에 쓰인 글자 443자만 담은 서브셋. */
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: block;
+  src: url(noto-sans-kr.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(jetbrains-mono.woff2) format('woff2');
+}
