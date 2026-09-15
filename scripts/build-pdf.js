@@ -76,6 +76,16 @@ function serve() {
   return new Promise(resolve => server.listen(0, '127.0.0.1', () => resolve(server)));
 }
 
+// PDF 에서는 마우스를 올려봐야 링크인지 알 수 없으므로, 누를 수 있는 곳에는
+// 모두 밑줄을 그어 링크처럼 보이게 한다. (화면용 index.html 은 그대로 둔다.)
+const LINK_CSS = `
+  a[href] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2.5px;
+  }
+`;
+
 // 화면과 인쇄 레이아웃을 일치시키는 규칙. 높이를 화면에서 재고 그대로 페이지
 // 크기로 쓰기 때문에 @media print 가 아니라 항상 적용한다.
 const LAYOUT_CSS = `
@@ -193,6 +203,7 @@ const SHRINK_IMAGES = async () => {
       console.warn('fonts/fonts.css 가 없다. node scripts/fetch-fonts.js 를 먼저 실행할 것.');
     }
 
+    await page.addStyleTag({ content: LINK_CSS });
     if (!ONE_PAGE) await page.addStyleTag({ content: LAYOUT_CSS });
     await page.evaluate(FORCE_LAZY_IMAGES);
     await page.waitForTimeout(2500);
