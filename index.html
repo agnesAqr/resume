@@ -3282,7 +3282,7 @@ a:hover { color: #142a66; text-decoration: underline; }
       <div style="height: 1px; background: #e0e2e8;"></div>
       <div style="display: flex; flex-direction: column; gap: 9.5px;">
         <p style="margin: 0; font-size: 15.8px; line-height: 1.62; color: #454b58; text-wrap: pretty; word-break: keep-all;"><b style="font-weight: 700; color: #1b2030; background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px;">엔진과 시스템의 원리를 이해하고, AI로 빠르게 탐색하며 직접 구현·검증하는 개발자</b></p>
-        <p style="margin: 0; font-size: 15.8px; line-height: 1.62; color: #454b58; text-wrap: pretty; word-break: keep-all;">C++·Unreal Engine·Direct3D 11을 기반으로 엔진과 그래픽스의 동작 원리를 탐구하고, SkeletalMesh 런타임 처리 및 게임 시스템 최적화를 직접 구현했습니다.</p>
+        <p style="margin: 0; font-size: 15.8px; line-height: 1.62; color: #454b58; text-wrap: pretty; word-break: keep-all;">C++·Unreal Engine·Direct3D 11을 기반으로 엔진과 그래픽스의 동작 원리를 탐구하고,<br>SkeletalMesh 런타임 처리 및 게임 시스템 최적화를 직접 구현했습니다.</p>
         <p style="margin: 0; font-size: 15.8px; line-height: 1.62; color: #454b58; text-wrap: pretty; word-break: keep-all;">문제를 구조적으로 분석하고 프로파일링을 통해 성능을 검증하며,<br>새로운 기술의 학습과 개발 과정에는 생성형 AI를 활용해 탐색과 구현 속도를 높이고 있습니다.</p>
       </div>
     </div>
@@ -3434,22 +3434,24 @@ a:hover { color: #142a66; text-decoration: underline; }
           <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">성과</div>
           <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #f0f3fa; border-radius: 6px; border: 1px solid #dce2ef;">
             <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Fab 상용 출시 후 운영</div>
-              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">Docs(Notion) · Discord · YouTube 사용자 지원</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Fab 상용 출시 · 운영</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">Docs(Notion) · Discord · YouTube로 사용자 지원</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">절단 1회 총비용 17.87ms → 11.70ms (−34.5%)</div>
-              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">렌더 스레드 대기 64회 → 0</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">절단 1회 비용 34.5% 감소 (17.87 → 11.70ms)</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">엔진 스키닝 API 안에 숨은 렌더 스레드 동기화를 찾아 자체 CPU 스키닝으로 대체</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58;">렌더 스레드 대기 64회 → 0회 · 정점 분류 구간 6.50 → 0.55ms</div>
+              <div style="font-size: 11.5px; line-height: 1.7; color: #6b7280; margin-top: 5px;">Unreal Insights · 좀비 32체 절단 전후 비교</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">정점 분류 6.50ms → 0.55ms (−91.6%)</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">렌더 버퍼 재구성 로직 15.5% 감소 (8.04 → 6.79ms)</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">해시 기반 조회(TSet · TMap)를 비트마스크 · 플랫 배열로 교체, P95도 14.3% 감소</div>
+              <div style="font-size: 11.5px; line-height: 1.7; color: #6b7280; margin-top: 5px;">자동화 벤치마크 · 150K 정점 · 격리 측정 · 출력 일치 검증</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">렌더 버퍼 재구성 로직 8.04ms → 6.79ms (−15.5%, 격리 측정)</div>
-            </div>
-            <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">캡 웨이트 조회 O(N×M) → O(1)</div>
-              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">455/455 폴백 0회</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">캡 스킨 웨이트 매칭을 근사 탐색에서 정확한 조회로 전환</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">좌표 최근접 탐색 O(N×M) 대신 정점 생성 시점에 출처를 기록해 O(1) 조회</div>
+              <div style="font-size: 11.5px; line-height: 1.7; color: #6b7280; margin-top: 5px;">부동소수 오차 의존 제거 · 캡 정점 455/455 매칭, 폴백 0회</div>
             </div>
           </div>
         </div>
@@ -3500,7 +3502,7 @@ a:hover { color: #142a66; text-decoration: underline; }
           <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">정량 성과</div>
           <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #f0f3fa; border-radius: 6px; border: 1px solid #dce2ef;">
             <div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171C26">Deferred RT 메모리 −30.8%</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Deferred RT 메모리 −30.8%</div>
               <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">Position RT 2장 제거 + Depth SRV 월드 위치 복원 · GBuffer+LightPass RT + Depth 기준</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
@@ -3508,7 +3510,7 @@ a:hover { color: #142a66; text-decoration: underline; }
               <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">slice DSV 직접 렌더링으로 CopySubresource N → 0/frame</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #1E3A8A">Particle 버퍼 생성 3N → 0/frame</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Particle 버퍼 생성 3N → 0/frame</div>
               <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">Emitter마다 매 프레임 VB·IB·ParamBuffer 재생성 → 공유 StructuredBuffer 1회 생성으로 대체</div>
             </div>
           </div>
