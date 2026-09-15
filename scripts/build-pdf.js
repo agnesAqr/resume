@@ -150,6 +150,15 @@ const FORCE_LAZY_IMAGES = () => {
   });
 };
 
+// 움직이는 webp 는 인쇄 시점에 재생 중이던 프레임이 그대로 박제된다. 어떤 장면이
+// 실릴지는 stills/<슬롯 id>.png 로 고정한다. (없는 슬롯은 기존대로 임의 프레임)
+const PIN_STILLS = ids => {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('src', `stills/${id}.png`);
+  });
+};
+
 const AWAIT_ASSETS = async () => {
   await document.fonts.ready;
   const walk = (node, acc) => {
@@ -206,6 +215,13 @@ const SHRINK_IMAGES = async () => {
     await page.addStyleTag({ content: LINK_CSS });
     if (!ONE_PAGE) await page.addStyleTag({ content: LAYOUT_CSS });
     await page.evaluate(FORCE_LAZY_IMAGES);
+
+    const stillsDir = path.join(ROOT, 'stills');
+    const pinned = fs.existsSync(stillsDir)
+      ? fs.readdirSync(stillsDir).filter(f => f.endsWith('.png')).map(f => path.basename(f, '.png'))
+      : [];
+    if (pinned.length) await page.evaluate(PIN_STILLS, pinned);
+
     await page.waitForTimeout(2500);
     await page.evaluate(AWAIT_ASSETS);
     // 애니메이션 webp 는 지금 보이는 프레임이 그대로 박제되므로 잠시 재생시킨다.
