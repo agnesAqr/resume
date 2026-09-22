@@ -3626,7 +3626,7 @@ a:hover { color: #142a66; text-decoration: underline; }
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; color: #1e3a8a; white-space: nowrap; padding: 5px 11px; background: #f0f3fa; border-radius: 3px;">TECH STACK</span>
     </div>
     <div style="display: flex; flex-direction: column; gap: 0;">
-      <sc-for list="{{ stack }}" as="row" hint-placeholder-count="5">
+      <sc-for list="{{ stack }}" as="row" hint-placeholder-count="10">
         <div style="display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 13px 0; border-top: 1px solid #e0e2e8; align-items: baseline;">
           <div style="font-size: 13.5px; font-weight: 700; color: #454b58;">{{ row.label }}</div>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;">
@@ -3637,18 +3637,6 @@ a:hover { color: #142a66; text-decoration: underline; }
               <sc-if value="{{ t.lo }}" hint-placeholder-val="{{ true }}">
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; padding: 4px 10px; background: #f0f1f4; border: 1px solid #e0e2e8; border-radius: 3px; color: #2d3340;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="{{ t.d }}"></path></svg>{{ t.n }}</span>
               </sc-if>
-            </sc-for>
-          </div>
-        </div>
-      </sc-for>
-      <sc-for list="{{ tools }}" as="row" hint-placeholder-count="4">
-        <div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 13px 0; border-top: 1px solid #e0e2e8;">
-          <div style="font-size: 13.5px; font-weight: 700; color: #454b58;">{{ row.label }}</div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <sc-for list="{{ row.items }}" as="t" hint-placeholder-count="2">
-              <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; padding: 4px 10px; background: #f0f1f4; border: 1px solid #e0e2e8; border-radius: 3px; color: #2d3340;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="{{ t.d }}"></path></svg>{{ t.n }}</span>
-              </div>
             </sc-for>
           </div>
         </div>
@@ -3700,31 +3688,20 @@ class Component extends DCLogic {
       tool: 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z',
       phone: 'M7 2h10a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z M11 18h2'
     };
-    const HI = ['Unreal Engine', 'C++', 'Direct3D 11'];
+    const HI = ['Unreal Engine 5', 'C++', 'Direct3D 11'];
     const T = (n, d) => ({ n, d, hi: HI.includes(n), lo: !HI.includes(n) });
     return {
       stack: [
-        { label: '엔진 · 프레임워크', items: [T('Unreal Engine', IC.engine), T('GAS', IC.layers), T('Dedicated Server', IC.server), T('MVVM', IC.layers), T('UMG / Slate', IC.layers), T('Unity', IC.engine)] },
+        { label: '엔진', items: [T('Unreal Engine 5', IC.engine), T('Unity', IC.engine)] },
         { label: '언어', items: [T('C++', IC.code), T('C#', IC.code), T('HLSL / SM 5.0', IC.code)] },
-        { label: '그래픽스', items: [T('Direct3D 11', IC.gpu)] },
-        { label: '네트워크', items: [T('UE Replication', IC.net), T('RPC', IC.net), T('FastArray', IC.net), T('NetSerialization', IC.net)] }
-      ],
-      tools: [
-        { label: '형상 관리', items: [
-          { n: 'Git / SourceTree', d: IC.tool, lv: '상', desc: '브랜치 전략 기반 협업, 실무 및 협업 프로젝트에서 충돌 해결·머지' },
-          { n: 'Perforce', d: IC.tool, lv: '중', desc: '언리얼 플러그인 개발 시 사용' }
-        ] },
-        { label: '프로파일링 · 디버깅', items: [
-          { n: 'RenderDoc', d: IC.gpu, lv: '중', desc: '렌더 패스 · 드로우콜 분석' },
-          { n: 'Unreal Insights', d: IC.gpu, lv: '중', desc: '성능 측정 및 병목 구간 분석' }
-        ] },
-        { label: '개발 환경', items: [
-          { n: 'Visual Studio 2022', d: IC.code, lv: '상', desc: 'C++ / C# 주 개발 IDE' },
-          { n: 'Rider', d: IC.code, lv: '상', desc: 'C++ / C# 주 개발 IDE' }
-        ] },
-        { label: '협업 · 이슈 관리', items: [
-          { n: 'Notion, Trello', d: IC.layers, lv: '상', desc: '일정 · 이슈 트래킹 및 문서 관리' }
-        ] }
+        { label: '게임플레이 · UI', items: [T('GAS', IC.layers), T('Behavior Tree (직접 구현)', IC.layers), T('UMG', IC.layers), T('CommonUI', IC.layers), T('UMG Viewmodel', IC.layers)] },
+        { label: '엔진 프로그래밍', items: [T('UE Plugin (Fab 출시)', IC.server), T('Skeletal Mesh Render Data', IC.server), T('CPU Skinning', IC.server)] },
+        { label: '그래픽스', items: [T('Direct3D 11', IC.gpu), T('Deferred Rendering', IC.gpu), T('Uber Shader', IC.gpu), T('Shadow Mapping', IC.gpu), T('GPU Instancing', IC.gpu)] },
+        { label: '네트워크', items: [T('Dedicated Server', IC.net), T('UE Replication', IC.net), T('RPC', IC.net), T('FFastArraySerializer', IC.net), T('Lag Compensation', IC.net)] },
+        { label: '형상 관리', items: [T('Git', IC.tool), T('SourceTree', IC.tool)] },
+        { label: '프로파일링 · 테스트', items: [T('Unreal Insights', IC.gpu), T('UE Automation Test', IC.gpu)] },
+        { label: '개발 환경', items: [T('Visual Studio 2022', IC.code), T('Rider', IC.code)] },
+        { label: '협업 · 이슈 관리', items: [T('Notion', IC.layers), T('Trello', IC.layers)] }
       ],
       prj01Tags: [T('UE 5.6', IC.engine), T('C++', IC.code), T('FSkeletalMeshLODRenderData', IC.gpu), T('CPU Skinning', IC.gpu), T('FGeomTools', IC.gpu)],
       prj02Tags: [T('Direct3D 11', IC.gpu), T('C++', IC.code), T('HLSL/SM5.0', IC.code), T('Deferred', IC.gpu), T('Uber Shader', IC.gpu), T('Texture2DArray Shadow', IC.gpu), T('GPU Instancing', IC.gpu)],
