@@ -3263,6 +3263,8 @@ window.__resources = {
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<!-- Google's JetBrains Mono subsets omit → and ↗; load just those glyphs so the arrows stay in the mono face -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;text=%E2%86%92%E2%86%97&amp;display=swap" rel="stylesheet">
 <style>
 html { scroll-behavior: smooth; }
 body { margin: 0; background: #eceef2; font-family: 'Noto Sans KR', sans-serif; color: #171c26; -webkit-font-smoothing: antialiased; }
