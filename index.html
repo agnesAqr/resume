@@ -3328,9 +3328,10 @@ a:hover { color: #142a66; text-decoration: underline; }
         <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">담당 R&amp;R</div>
         <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; line-height: 1.6; color: #454b58;">
           <li>Addressables 기반 원격 에셋 사전 다운로드 시스템 구축 및 <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">런타임 메모리 관리 구조 설계</span></li>
-          <li>OIDC 통합 인증의 <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">iOS 네이티브 브릿지 구현</span></li>
-          <li>Command 패턴 기반 사내 UI 프레임워크 위에서 화면·팝업 흐름 구현</li>
+          <li><span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">iOS 네이티브 인증 플러그인 바인딩</span> 및 OIDC 통합 로그인 연동</li>
+          <li>다중 해상도 및 화면비 대응을 위한 반응형 UGUI 레이아웃 설계 및 Safe Area 동적 보정 구현</li>
           <li>iOS·Android 플랫폼별 빌드 이슈 및 크래시 대응</li>
+          <li>iOS 빌드 파이프라인 관리 및 App Store Connect 상용 출시·심사 프로세스 전담</li>
         </ul>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
           <sc-for list="{{ exp01Tags }}" as="t" hint-placeholder-count="5">
@@ -3372,7 +3373,7 @@ a:hover { color: #142a66; text-decoration: underline; }
           <li>Strategy 패턴 + Behavior Tree 기반 <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">AI NPC 행동 시스템 설계</span>, 행동 6종 모듈화</li>
           <li>AI NPC <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">경로 탐색 교착(livelock) 문제 해결</span></li>
           <li>Addressables 기반 원격 에셋 사전 다운로드 시스템 구축 및 <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">런타임 메모리 관리 구조 설계</span></li>
-          <li>모바일 해상도·화면비 대응 반응형 UI 레이아웃 설계·구현</li>
+          <li>다중 해상도 및 화면비 대응을 위한 반응형 UGUI 레이아웃 설계 및 Safe Area 동적 보정 구현</li>
           <li>iOS·Android 빌드 파이프라인 정립 및 스토어 심사 대응, <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">양대 스토어 상용 출시</span></li>
         </ul>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
@@ -3426,10 +3427,10 @@ a:hover { color: #142a66; text-decoration: underline; }
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <div style="font-size: 14px; font-weight: 900; color: #171c26; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">담당 R&amp;R</div>
           <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 13.5px; line-height: 1.6; color: #454b58;">
-            <li>SkeletalMesh <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">렌더 버퍼 런타임 재구성</span> 파이프라인 설계 및 구현</li>
+            <li>SkeletalMesh <span style="background: linear-gradient(transparent 42%, #d6e2f7 42%, #d6e2f7 92%, transparent 92%); padding: 0 1px; font-weight: 700;">렌더 버퍼 런타임 재구성</span> 파이프라인 구현 및 출시 후 최적화</li>
             <li>절단면 생성 및 CPU Skinning</li>
             <li>절단면 Socket 부착 + VFX 통합</li>
-            <li>YouTube 튜토리얼·데모 제작, Discord 커뮤니티 공지 및 사용자 커뮤니케이션</li>
+            <li>YouTube 튜토리얼·게임 데모 제작, 커뮤니티 공지 및 사용자 커뮤니케이션</li>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -3441,7 +3442,7 @@ a:hover { color: #142a66; text-decoration: underline; }
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">절단 1회 비용 34.5% 감소 (17.87 → 11.70ms)</div>
-              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">엔진 스키닝 API 안에 숨은 렌더 스레드 동기화를 찾아 자체 CPU 스키닝으로 대체</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">엔진 스키닝 API 안에 숨은 렌더 스레드 동기화를 자체 CPU 스키닝으로 대체</div>
               <div style="font-size: 12.5px; line-height: 1.7; color: #454b58;">렌더 스레드 대기 64회 → 0회 · 정점 분류 구간 6.50 → 0.55ms</div>
               <div style="font-size: 11.5px; line-height: 1.7; color: #6b7280; margin-top: 5px;">Unreal Insights · 좀비 32체 절단 전후 비교</div>
             </div>
@@ -3451,8 +3452,8 @@ a:hover { color: #142a66; text-decoration: underline; }
               <div style="font-size: 11.5px; line-height: 1.7; color: #6b7280; margin-top: 5px;">자동화 벤치마크 · 150K 정점 · 격리 측정 · 출력 일치 검증</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">캡 스킨 웨이트 매칭을 근사 탐색에서 정확한 조회로 전환</div>
-              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">좌표 최근접 탐색 O(N×M) 대신 정점 생성 시점에 출처를 기록해 O(1) 조회</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">캡 스킨 웨이트 매칭 방식 변경 : 근사 탐색 → 조회</div>
+              <div style="font-size: 12.5px; line-height: 1.7; color: #454b58; margin-top: 5px;">좌표 최근접 탐색과 부동소수 허용 오차에 의존하던 방식에서 O(1) 스킨 웨이트 조회로 변경</div>
               <div style="font-size: 11.5px; line-height: 1.7; color: #6b7280; margin-top: 5px;">부동소수 오차 의존 제거 · 캡 정점 455/455 매칭, 폴백 0회</div>
             </div>
           </div>
@@ -3505,7 +3506,7 @@ a:hover { color: #142a66; text-decoration: underline; }
           <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #f0f3fa; border-radius: 6px; border: 1px solid #dce2ef;">
             <div>
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Deferred RT 메모리 −30.8%</div>
-              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">Position RT 2장 제거 + Depth SRV 월드 위치 복원 · GBuffer+LightPass RT + Depth 기준</div>
+              <div style="font-size: 12px; color: #5b6270; margin-top: 4px;">Position RT 2장 제거 + Depth SRV 월드 위치 복원 · GBuffer + LightPass RT + Depth 기준</div>
             </div>
             <div style="border-top: 1px solid #dce2ef; padding-top: 12px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #171c26;">Shadow Depth 저장 2N → N</div>
